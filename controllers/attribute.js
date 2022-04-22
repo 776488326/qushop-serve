@@ -41,7 +41,7 @@ const attrDel = async (ctx)=>{
         ctx.body = {
             code:200,
             msg: "success!",
-            data:doc
+            data:{}
         }
     }else{
         ctx.status = 200;

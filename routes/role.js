@@ -12,7 +12,7 @@ roleRouter.get('/list',role.roleList);
 roleRouter.get("/info",role.roleInfo);
 
 // 删除角色
-roleRouter.delete("/delete",role.roleDel);
+roleRouter.delete("/del",role.roleDel);
 
 // 添加角色
 roleRouter.post("/add",role.roleAdd);
@@ -20,7 +20,7 @@ roleRouter.post("/add",role.roleAdd);
 // 修改角色
 roleRouter.put("/update",role.roleUpdate);
 
-//
+// 清空列表
 roleRouter.get("/clear",role.dropSet);
 
 module.exports = roleRouter;

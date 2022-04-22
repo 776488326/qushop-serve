@@ -39,6 +39,7 @@ const spuList = async (ctx)=>{
 
 
 const spuAdd = async (ctx)=>{
+    console.log(ctx.request.body);
     const _id = ctx.request.body._id;
     var doc = await spuModel.findById(_id);
     if(!doc){
@@ -79,6 +80,7 @@ const spuAdd = async (ctx)=>{
 }
 
 const spuDel = async (ctx)=>{
+    
     const doc = await spuModel.deleteOne({"_id":ctx.params.spuId});
     console.log(ctx.params.spuId);
     if(doc.deletedCount){

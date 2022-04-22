@@ -1,5 +1,5 @@
 // 添加商品分类
-const { shopCategoryModel } = require("../models/index");
+const { shopCategoryModel,msgModel } = require("../models/index");
 
 const init = [{
     name: "手机",
@@ -91,3 +91,20 @@ shopCategoryModel.create(init).then((err,docs)=>{
     console.log(docs);
 })
 
+
+var msg = {
+    totalVisit: 0,
+    visitDay:[
+        {
+            time: Date.toString,
+            count: 0
+        }
+    ],
+    payDay:[
+    ]
+}
+
+
+msgModel.create(msg).then((err,docs)=>{
+    console.log(err);
+})

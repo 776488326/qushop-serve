@@ -10,9 +10,14 @@ const shopCategoryRouter = require("./shopCategory");
 const roleRouter = require("./role");
 //引入属性管理路由
 const attrRouter = require("./attribute");
-
+//引入spu管理
 const spuRouter = require("./spu");
+//引入sku管理
 const skuRouter = require("./sku");
+//引入权限管理
+const permissionRouter = require("./permission")
+
+const msgRouter = require("./message")
 
 module.exports = {
   adminRouter,
@@ -22,5 +27,7 @@ module.exports = {
   roleRouter,
   attrRouter,
   spuRouter,
-  skuRouter
+  skuRouter,
+  permissionRouter,
+  msgRouter
 }

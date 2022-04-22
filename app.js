@@ -6,23 +6,27 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const koajwt = require("koa-jwt")
 
-//引入路由
+// 引入全部路由实例
+const {userRouter,adminRouter,tradeRouter,shopCategoryRouter,
+      roleRouter,attrRouter,spuRouter,skuRouter,permissionRouter,
+      msgRouter} = require('./routes/index')
 
-const {userRouter,adminRouter,tradeRouter,shopCategoryRouter,roleRouter,attrRouter,spuRouter,skuRouter} = require('./routes/index')
-
-// error handler
+// 错误处理
 onerror(app)
 
-// middlewares
+// 请求体解析
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
-app.use(json())
-app.use(logger())
-app.use(require('koa-static')(__dirname + '/static'))
 
-//初始化分类列表
-// require("./utils/initDataBase");
+// JSON支持
+app.use(json())
+
+// 日志生成
+app.use(logger())
+
+// 静态目录访问支持
+app.use(require('koa-static')(__dirname + '/static'))
 
 // logger
 app.use(async (ctx, next) => {
@@ -42,6 +46,8 @@ app.use(roleRouter.routes(), roleRouter.allowedMethods())
 app.use(spuRouter.routes(), spuRouter.allowedMethods())
 app.use(skuRouter.routes(),skuRouter.allowedMethods())
 app.use(attrRouter.routes(),attrRouter.allowedMethods())
+app.use(msgRouter.routes(),msgRouter.allowedMethods())
+app.use(permissionRouter.routes(),permissionRouter.allowedMethods())
 
 
 // error-handling

@@ -6,6 +6,21 @@ const { shopCategoryModel } = require("../models/index");
 const addCategory = async (ctx)=>{
     
     const doc = await shopCategoryModel.create(ctx.request.body);
+    if(doc){
+        ctx.status = 200;
+        ctx.body = {
+            code:200,
+            msg:"",
+            data:{}
+        }
+    }else{
+        ctx.status = 200;
+        ctx.body = {
+            code: 400,
+            msg:"",
+            data:{}
+        }
+    }
 }
 
 

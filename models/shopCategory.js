@@ -11,7 +11,17 @@ const categorySchema = new mongoose.Schema({
                 default:undefined
             }
         }]
-    }]
+    }],
+    salesDetail:{
+        total:Number,
+        itemList:[
+            {
+                "createTime": Date,
+                "itemName": String,
+                "itemMount": Number
+            }
+        ]
+    }
 });
 
 const shopCategoryModel = mongoose.model("category",categorySchema);

@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const {roleModel} = require("../models/index");
 
 //角色添加
@@ -32,7 +33,13 @@ const roleAdd = async (ctx)=>{
 //角色删除
 
 const roleDel = async (ctx)=>{
-    const res = await roleModel.deleteOne({'_id':ctx.query.roleId});
+    const ids = ctx.request.body.ids;
+    ids.forEach((item,index) => {
+        ids[index] = mongoose.Types.ObjectId(item);
+        console.log(ids[index]);
+    });
+    const res = await roleModel.deleteMany({"_id":{"$in":ids}})
+    
     if(res.deletedCount){
         ctx.status = 200;
         ctx.body = {
@@ -43,7 +50,7 @@ const roleDel = async (ctx)=>{
     }else{
         ctx.status = 200;
         ctx.body = {
-            code: 200,
+            code: 400,
             msg: "删除失败！",
             data: {}
         }
@@ -75,17 +82,24 @@ const roleUpdate = async (ctx)=>{
 //角色列表
 
 const roleList = async (ctx)=>{
-    const {limit,page,roleName} = ctx.query;
-    const list = await roleModel.aggregate(
-        [
-            {
-                "$sort":{'roleName':1}
-            },{
-                "$skip": limit*(page-1)
-            }
-        ]
-    );
-    if(list.length){
+    try {
+        const {limit,page,roleName} = ctx.query;
+        var list = null;
+        if(roleName){
+            list = await roleModel.aggregate([
+                {"$match":{"roleName":roleName}}
+            ])
+        }else{
+            list = await roleModel.aggregate(
+                [
+                    {
+                        "$sort":{'roleName':1}
+                    },{
+                        "$skip": limit*(page-1)
+                    }
+                ]
+            );
+        }
         ctx.status = 200;
         ctx.body = {
             code: 200,
@@ -95,11 +109,12 @@ const roleList = async (ctx)=>{
                 items:list
             }
         }
-    }else{
+    } catch (error) {
+        ctx.status = 500
         ctx.body = {
             code: 500,
             msg: "获取失败！",
-            data: []
+            data: error
         }
     }
 }

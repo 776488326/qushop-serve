@@ -3,67 +3,9 @@ const mongoose = require('../utils/DBConnection');
 const roleSchema = new mongoose.Schema({
     roleName: String,
     authorityList: [
-        {
-            deleted: Boolean,
-            pid: String,
-            name: String,
-            code: String,
-            toCode: String,
-            status: String,
-            level: Number,
-            children: [
-                {
-                    deleted: Boolean,
-                    pid: String,
-                    name: String,
-                    code: String,
-                    toCode: String,
-                    status: String,
-                    level: Number,
-                    children: [
-                        {
-                            deleted: Boolean,
-                            pid: String,
-                            name: String,
-                            code: String,
-                            toCode: String,
-                            status: String,
-                            level: Number,
-                            children: Array,
-                            select: Boolean
-                        }
-                    ],
-                    select: Boolean
-                },
-                {
-                    deleted: Boolean,
-                    pid: String,
-                    name: String,
-                    code: String,
-                    toCode: String,
-                    type: Number,
-                    status: String,
-                    level: Number,
-                    children: [
-                        {
-                            deleted: Boolean,
-                            pid: String,
-                            name: String,
-                            code: String,
-                            toCode: String,
-                            type: Number,
-                            status: String,
-                            level: Number,
-                            children: Array,
-                            select: Boolean
-                        }
-                    ],
-                    select: Boolean
-                }
-            ],
-            select: Boolean
-        }
-    ]
+    ],
+    routes:[],
+    buttons:[]
 });
 
 const roleModel = mongoose.model("roles", roleSchema);

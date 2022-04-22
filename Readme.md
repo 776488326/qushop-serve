@@ -98,3 +98,56 @@
 
 - 聚合操作中$match可以直接指定值进行匹配————》{"$match":{"id":12312}}
 
+
+### mongodb连接失败
+- 使用brew安装的mongodb则必须使用brew的命令来启动
+- 启动：brew services start mongodb-community
+- 关闭：brew services stop mongodb-community
+- 如果不手动关闭
+
+### 使用普通的shell来连接
+
+- mongod 开启服务
+- mongo 打开shell连接服务
+- <img src="./imgs/1.png"></img>
+- 
+
+### http请求参数的设置与获取
+
+- 发送get请求
+    - params：通过在路径中使用 ‘{}’ 占位
+    - query：通过？来隔离，每对 key-value 间通过 & 分割
+- 获取get请求
+    - params：通过在路径中使用 ‘:key’ 占位，使用ctx.params.key获取
+    - query：使用ctx.query.key获取
+- delete与get类似
+
+
+- 发送post请求
+    - data：设置header中的data
+- 获取post请求
+    - data：通过ctx.request.body来获取
+- put与post类似
+
+
+### 模块
+
+- commonjs——》module.exports = {}
+    - 导入 const {} = require("./");
+
+- EsModule——》export default {}
+    - 导出 import * as A from "./"
+
+### 字段过滤
+
+- 通过$match来设置$ne,$eq,$exist,$nin
+
+
+### element-ui使用table-tree组件时
+
+- 如果有下级需要展开，不需要设置hasChildren，但是children必须要设置到tree-props对象中
+- 同时数据中必须包含children子项
+- 如果提示"Error: for nested data item, row-key is required."
+- 肯定是row-key设置错误，避免设置为与id相关的字段，有可能会冲突导致错误。
+
+### 使用updateOne或者findOne等mongoose提供的api时，手动匹配ID时，必须将Id转为ObjectId

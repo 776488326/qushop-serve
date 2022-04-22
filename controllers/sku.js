@@ -12,7 +12,7 @@ const skuList = async (ctx)=>{
         {"$limit":limit}
     ])
 
-    if(docs.length){
+    if(docs.length>=0){
         ctx.status = 200;
         ctx.body = {
             code:200,
@@ -49,6 +49,7 @@ const List = async (ctx)=>{
 }
 
 const skuAdd = async (ctx)=>{
+    console.log(ctx);
     const doc = await skuModel.create(ctx.request.body);
     if(doc){
         ctx.status = 200;
