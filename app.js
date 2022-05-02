@@ -6,11 +6,13 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const koajwt = require("koa-jwt")
 
-// 引入全部路由实例
-const {userRouter,adminRouter,tradeRouter,shopCategoryRouter,
+// 引入管理端路由实例
+const {adminRouter,tradeRouter,shopCategoryRouter,
       roleRouter,attrRouter,spuRouter,skuRouter,permissionRouter,
       msgRouter} = require('./routes/index')
+// 引入客户端路由实例
 
+const {userRouter,clientShopRouter,shopCartRouter,orderRouter} = require("./routes/index")
 // 错误处理
 onerror(app)
 
@@ -18,6 +20,9 @@ onerror(app)
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
+
+// 初始化
+// require("./utils/initDataBase");
 
 // JSON支持
 app.use(json())
@@ -36,9 +41,16 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// 使用路由
-app.use(adminRouter.routes(), adminRouter.allowedMethods())
+
+// 使用客户端路由
 app.use(userRouter.routes(), userRouter.allowedMethods())
+app.use(shopCartRouter.routes(), shopCartRouter.allowedMethods())
+app.use(orderRouter.routes(), orderRouter.allowedMethods())
+app.use(clientShopRouter.routes(),clientShopRouter.allowedMethods())
+
+
+// 使用管理端路由
+app.use(adminRouter.routes(), adminRouter.allowedMethods())
 app.use(tradeRouter.routes(), tradeRouter.allowedMethods())
 app.use(shopCategoryRouter.routes(), shopCategoryRouter.allowedMethods())
 app.use(roleRouter.routes(), roleRouter.allowedMethods())
